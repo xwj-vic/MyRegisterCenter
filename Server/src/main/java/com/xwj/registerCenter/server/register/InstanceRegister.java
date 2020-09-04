@@ -4,7 +4,7 @@ import com.xwj.registerCenter.server.entity.InstanceInfo;
 import com.xwj.registerCenter.server.entity.LeaseInfo;
 import com.xwj.registerCenter.server.enums.InstanceStatus;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -73,8 +73,47 @@ public abstract class InstanceRegister implements Register {
     @Override
     public boolean eviction() {
         System.out.println("服务剔除");
-
+        evict();
         return true;
+    }
+
+    /**
+     * 思路
+     * 先找出所有需要剔除的服务放进一个list里，然后分段删除
+     */
+    private void evict() {
+        List<LeaseInfo<InstanceInfo>> expiredLeases = new ArrayList<>(); //获取所有需要剔除的服务信息，放到集合里
+        for (Map.Entry<String, Map<String, LeaseInfo<InstanceInfo>>> groupEntry : registerMap.entrySet()) {
+            Map<String, LeaseInfo<InstanceInfo>> leaseMap = groupEntry.getValue();
+            if (leaseMap != null) {
+                for (Map.Entry<String, LeaseInfo<InstanceInfo>> leaseEntry : leaseMap.entrySet()) {
+                    LeaseInfo<InstanceInfo> lease = leaseEntry.getValue();
+                    if (lease.isExpired() && lease.getObject() != null) {
+                        expiredLeases.add(lease);
+                    }
+                }
+            }
+        }
+
+        int registrySize = 0;
+        for (Map<String, LeaseInfo<InstanceInfo>> entry : registerMap.values())
+            registrySize += entry.size(); //获取所有已注册的服务数量
+        int registrySizeThreshold = (int) (registrySize * 0.85); //参考eureka 0.85,这里主要获取需要保留下来的数量
+        int evictionLimit = registrySize - registrySizeThreshold; //相减得到本次预计需要剔除的服务数量
+
+        int toEvict = Math.min(expiredLeases.size(), evictionLimit); //为了安全起见，做一下比较，取最小值
+        if (toEvict > 0) { //执行剔除
+            Random random = new Random(System.currentTimeMillis());
+            for (int i = 0; i < toEvict; i++) { //随机剔除
+                // Pick a random item (Knuth shuffle algorithm)
+                int next = i + random.nextInt(expiredLeases.size() - i);
+                Collections.swap(expiredLeases, i, next);
+                LeaseInfo<InstanceInfo> lease = expiredLeases.get(i);
+                String appName = lease.getObject().getInstanceName();
+                String id = lease.getObject().getInstanceId();
+                internalCancel(appName, id, false); //服务下架
+            }
+        }
     }
 
     private boolean internalCancel(String appName, String instanceId, boolean isReplication) {

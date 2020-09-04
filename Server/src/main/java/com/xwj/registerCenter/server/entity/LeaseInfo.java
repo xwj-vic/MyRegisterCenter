@@ -42,7 +42,7 @@ public class LeaseInfo<T> {
      *
      * @return
      */
-    public boolean isOverdue() {
+    public boolean isExpired() {
         return expelTime > 0 || System.currentTimeMillis() > (lastActivityTime + timeLimit);
     }
 
