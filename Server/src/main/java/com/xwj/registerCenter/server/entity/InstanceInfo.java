@@ -21,6 +21,11 @@ public class InstanceInfo {
 
     private InstanceStatus instanceStatus;
 
+    private Long lastDirtyTimestamp;
+
+    public InstanceInfo() {
+    }
+
     public String getIpAddr() {
         return ipAddr;
     }
@@ -77,6 +82,14 @@ public class InstanceInfo {
         this.instanceStatus = instanceStatus;
     }
 
+    public Long getLastDirtyTimestamp() {
+        return lastDirtyTimestamp;
+    }
+
+    public void setLastDirtyTimestamp(Long lastDirtyTimestamp) {
+        this.lastDirtyTimestamp = lastDirtyTimestamp;
+    }
+
     @Override
     public String toString() {
         return "InstanceInfo{" +
@@ -87,6 +100,7 @@ public class InstanceInfo {
                 ", timeLimit=" + timeLimit +
                 ", port='" + port + '\'' +
                 ", instanceStatus=" + instanceStatus +
+                ", lastDirtyTimestamp=" + lastDirtyTimestamp +
                 '}';
     }
 }

@@ -6,7 +6,8 @@ package com.xwj.registerCenter.server.enums;
 public enum InstanceStatus {
 
     UP("up",0),
-    DOWN("DOWN",1);
+    DOWN("DOWN",1),
+    UNKNOWN("Unkown", 2);
 
     private String name;
     private int  value;

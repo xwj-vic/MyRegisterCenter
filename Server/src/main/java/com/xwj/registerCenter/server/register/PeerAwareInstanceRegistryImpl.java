@@ -1,6 +1,7 @@
 package com.xwj.registerCenter.server.register;
 
 import com.xwj.registerCenter.server.entity.InstanceInfo;
+import com.xwj.registerCenter.server.entity.LeaseInfo;
 import com.xwj.registerCenter.server.enums.InstanceAction;
 import com.xwj.registerCenter.server.enums.InstanceStatus;
 
@@ -11,6 +12,8 @@ public class PeerAwareInstanceRegistryImpl extends InstanceRegister {
 
     @Override
     public void register(InstanceInfo info, int timeLimit, boolean isReplication) {
+        if (timeLimit == 0)  //由程序员自己配置，若为0，则默认90s
+            timeLimit = LeaseInfo.DEFULT_LEASE_TIME;
         super.register(info, timeLimit, isReplication);
         replicateToPeers(InstanceAction.Register, info.getInstanceName(), info.getInstanceId(), info, null, isReplication);
     }
