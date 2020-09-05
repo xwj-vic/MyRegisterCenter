@@ -1,4 +1,4 @@
-package com.xwj.registerCenter.server.entity;
+package com.xwj.registerCenter.common.entity;
 
 import java.util.HashMap;
 

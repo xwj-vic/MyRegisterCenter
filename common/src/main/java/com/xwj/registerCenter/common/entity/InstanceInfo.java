@@ -1,6 +1,6 @@
-package com.xwj.registerCenter.server.entity;
+package com.xwj.registerCenter.common.entity;
 
-import com.xwj.registerCenter.server.enums.InstanceStatus;
+import com.xwj.registerCenter.common.enums.InstanceStatus;
 
 /**
  * 节点信息

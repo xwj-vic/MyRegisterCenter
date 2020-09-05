@@ -1,8 +1,9 @@
 package com.xwj.registerCenter.server.register;
 
-import com.xwj.registerCenter.server.entity.InstanceInfo;
+import com.xwj.registerCenter.common.entity.R;
+import com.xwj.registerCenter.common.enums.InstanceStatus;
+import com.xwj.registerCenter.common.entity.InstanceInfo;
 import com.xwj.registerCenter.server.entity.LeaseInfo;
-import com.xwj.registerCenter.server.enums.InstanceStatus;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +22,17 @@ public abstract class InstanceRegister implements Register {
      * 这样就可以管理一个application聚合内的同种类型的实例了
      */
     private ConcurrentHashMap<String, Map<String, LeaseInfo<InstanceInfo>>> registerMap = new ConcurrentHashMap();
+
+
+    @Override
+    public R getInstanceInfo() {
+        return null;
+    }
+
+    @Override
+    public R getUpdateInstanceInfo() {
+        return null;
+    }
 
     /**
      * eureka还会有缓存和自我保护机制，先不实现，一步步来

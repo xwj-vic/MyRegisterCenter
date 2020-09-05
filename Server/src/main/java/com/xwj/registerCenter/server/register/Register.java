@@ -1,9 +1,25 @@
 package com.xwj.registerCenter.server.register;
 
 
-import com.xwj.registerCenter.server.entity.InstanceInfo;
+import com.xwj.registerCenter.common.entity.InstanceInfo;
+import com.xwj.registerCenter.common.entity.R;
 
 public interface Register {
+
+    /**
+     * 获取注册中心注册信息
+     *
+     * @return
+     */
+    R getInstanceInfo();
+
+    /**
+     * 获取注册中心更新的注册信息
+     *
+     * @return
+     */
+    R getUpdateInstanceInfo();
+
 
     /**
      * 注册

@@ -1,4 +1,4 @@
-package com.xwj.registerCenter.server.enums;
+package com.xwj.registerCenter.common.enums;
 
 /**
  * 节点行为

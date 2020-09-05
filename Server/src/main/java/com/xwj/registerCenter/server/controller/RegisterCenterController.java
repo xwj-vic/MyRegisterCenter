@@ -1,12 +1,12 @@
 package com.xwj.registerCenter.server.controller;
 
+import com.xwj.registerCenter.common.entity.R;
 import com.xwj.registerCenter.server.annotation.Controller;
 import com.xwj.registerCenter.server.annotation.RequestMapping;
 import com.xwj.registerCenter.server.annotation.ResponseResources;
 import com.xwj.registerCenter.server.entity.InstanceConfig;
-import com.xwj.registerCenter.server.entity.InstanceInfo;
+import com.xwj.registerCenter.common.entity.InstanceInfo;
 import com.xwj.registerCenter.server.entity.LeaseInfo;
-import com.xwj.registerCenter.server.entity.R;
 import com.xwj.registerCenter.server.register.Register;
 
 

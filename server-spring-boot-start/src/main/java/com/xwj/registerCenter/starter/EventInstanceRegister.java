@@ -1,6 +1,6 @@
 package com.xwj.registerCenter.starter;
 
-import com.xwj.registerCenter.server.entity.InstanceInfo;
+import com.xwj.registerCenter.common.entity.InstanceInfo;
 import com.xwj.registerCenter.server.register.PeerAwareInstanceRegistryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

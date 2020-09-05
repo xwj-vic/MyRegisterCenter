@@ -1,14 +1,25 @@
 package com.xwj.registerCenter.server.register;
 
-import com.xwj.registerCenter.server.entity.InstanceInfo;
+import com.xwj.registerCenter.common.entity.R;
+import com.xwj.registerCenter.common.enums.InstanceAction;
+import com.xwj.registerCenter.common.enums.InstanceStatus;
+import com.xwj.registerCenter.common.entity.InstanceInfo;
 import com.xwj.registerCenter.server.entity.LeaseInfo;
-import com.xwj.registerCenter.server.enums.InstanceAction;
-import com.xwj.registerCenter.server.enums.InstanceStatus;
 
 /**
  * 责任链模式， isReplication为true表示集群同步
  */
 public class PeerAwareInstanceRegistryImpl extends InstanceRegister {
+
+    @Override
+    public R getInstanceInfo() {
+        return null;
+    }
+
+    @Override
+    public R getUpdateInstanceInfo() {
+        return null;
+    }
 
     @Override
     public void register(InstanceInfo info, int timeLimit, boolean isReplication) {
